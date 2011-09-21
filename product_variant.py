@@ -204,7 +204,7 @@ class product_product(osv.osv):
         return super(product_product, self).copy(cr, uid, id, default, context)
 
     _columns = {
-        'total_price': fields.function(_variant_price_get, method=True, type='float', string='Prezzo Totale', readonly=True, store=True , digits=(9, 3)),
+        'total_price': fields.function(_variant_price_get, method=True, type='float', string='Prezzo Totale', readonly=True, store=True , digits=(9, 5)),
         'dimension_value_ids': fields.many2many('product.variant.dimension.value', 'product_product_dimension_rel', 'product_id', 'dimension_id', 'Dimensions', domain="[('product_tmpl_id','=',product_tmpl_id)]"),
         'variants': fields.function(_variant_name_get, method=True, type='char', size=256, string='Variants', readonly=True,
             store={
