@@ -153,8 +153,18 @@ class product_product(osv.osv):
             res[product.id] = ' - '.join(r)
         return res
 
+    def _variant_extra_get(self, cr, uid, ids, name, arg, context={}):
+        # import pdb;pdb.set_trace()
+        res = {}
+        for product in self.browse(cr, uid, ids, context):
+            r = product.price_extra
+            res[product.id] = r
+        return res
+
+
+
     def _variant_price_get(self, cr, uid, ids, name, arg, context={}):
-       # import pdb;pdb.set_trace()
+        #import pdb;pdb.set_trace()
         res = {}
         for product in self.browse(cr, uid, ids, context):
             r = product.price_extra + product.list_price
@@ -204,6 +214,7 @@ class product_product(osv.osv):
         return super(product_product, self).copy(cr, uid, id, default, context)
 
     _columns = {
+        'extra': fields.function(_variant_extra_get, method=True, type='float', string='Prezzo Extra', readonly=True, store=True , digits=(9, 5)),
         'total_price': fields.function(_variant_price_get, method=True, type='float', string='Prezzo Totale', readonly=True, store=True , digits=(9, 5)),
         'dimension_value_ids': fields.many2many('product.variant.dimension.value', 'product_product_dimension_rel', 'product_id', 'dimension_id', 'Dimensions', domain="[('product_tmpl_id','=',product_tmpl_id)]"),
         'variants': fields.function(_variant_name_get, method=True, type='char', size=256, string='Variants', readonly=True,

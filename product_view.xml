@@ -175,7 +175,7 @@
       <field name="arch" type="xml">
         <field name="price_extra" position="after">
           <field name="standard_price" readonly="1" />
-          <field name="list_price" string="Template price" readonly="1" />
+          <field name="list_price" string="Template price" />
           <newline/>
           <field colspan="4" name="dimension_value_ids" nolabel="1" widget="many2many" context="{'product_tmpl_id':product_tmpl_id}"/>
         </field>
@@ -232,8 +232,8 @@
           <field name="codice_template"  />
           <newline/>
         </field>
-        <field name="list_price" position="replace">
-          
+        <field name="list_price" position="after">
+        	<field name="extra" readonly="1" />         
           <field name="total_price" string="Prezzo di Listino" readonly="1" />
        </field>	
       </field>
